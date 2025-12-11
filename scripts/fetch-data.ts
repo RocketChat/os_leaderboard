@@ -1,7 +1,5 @@
 import fs from "fs/promises";
 import path from "path";
-import { fileURLToPath } from "url";
-
 // Types for the script
 interface RepoConfig {
   owner: string;
