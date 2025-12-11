@@ -16,6 +16,22 @@ You have two options for configuration:
 **Option A: File-based (Standard)**
 Edit `leaderboard.config.json` in this repository.
 
+```json
+{
+  "repos": [
+    "facebook/react",
+    "vercel/next.js"
+  ],
+  "orgs": [
+    "google" 
+  ],
+  "users": ["dnouv", "other-user"],
+  "startDate": "2025-12-01"
+}
+```
+*Note: If `users` is empty, all contributors are tracked. If populated, only listed users are tracked.*
+*Note: `startDate` filters contributions created after this date.*
+
 **Option B: Issue-based (No Commits)**
 To avoid polluting your commit history when adding users:
 1. Create a new Issue in your repository.
@@ -25,7 +41,8 @@ To avoid polluting your commit history when adding users:
    {
      "repos": ["facebook/react"],
      "orgs": [],
-     "users": ["new-user-1", "new-user-2"]
+     "users": ["new-user-1", "new-user-2"],
+     "startDate": "2025-12-01"
    }
    ```
 4. The workflow will automatically prefer this issue's content over the file.

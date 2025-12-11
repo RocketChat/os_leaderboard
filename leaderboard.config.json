@@ -1,8 +1,9 @@
 {
   "repos": [
-    "facebook/react",
-    "vercel/next.js"
+    "RocketChat/Rocket.Chat",
+    "RocketChat/ReactNative"
   ],
   "orgs": [],
-  "users": []
+  "users": [],
+  "startDate": "2025-12-01"
 }
