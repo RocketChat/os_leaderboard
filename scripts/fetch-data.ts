@@ -43,8 +43,8 @@ async function fetchConfigFromIssue(
 ): Promise<Config | null> {
   console.log(`Checking for configuration issue in ${owner}/${name}...`);
   const query = `
-    query {
-      repository(owner: "${owner}", name: "${name}") {
+    query($owner: String!, $name: String!) {
+      repository(owner: $owner, name: $name) {
         issues(first: 1, labels: ["leaderboard-config"], states: OPEN) {
           nodes {
             body
@@ -55,7 +55,7 @@ async function fetchConfigFromIssue(
   `;
 
   try {
-    const data = await fetchGraphQL(query);
+    const data = await fetchGraphQL(query, { owner, name });
     const issue = data.repository?.issues?.nodes?.[0];
 
     if (!issue || !issue.body) return null;
@@ -79,11 +79,16 @@ async function loadConfig(): Promise<Config> {
   // 1. Try to fetch from GitHub Issue if running in Action
   if (GITHUB_TOKEN && GITHUB_REPOSITORY) {
     try {
-      const [owner, name] = GITHUB_REPOSITORY.split("/");
-      const issueConfig = await fetchConfigFromIssue(owner, name);
-      if (issueConfig) {
-        console.log("Loaded configuration from GitHub Issue.");
-        return issueConfig;
+      const parts = GITHUB_REPOSITORY.split("/");
+      if (parts.length === 2 && parts[0] && parts[1]) {
+        const [owner, name] = parts;
+        const issueConfig = await fetchConfigFromIssue(owner, name);
+        if (issueConfig) {
+          console.log("Loaded configuration from GitHub Issue.");
+          return issueConfig;
+        }
+      } else {
+        console.warn("Invalid GITHUB_REPOSITORY format, expected 'owner/repo'");
       }
     } catch (e) {
       console.warn("Failed to load config from issue, falling back to file.");
@@ -100,14 +105,14 @@ async function loadConfig(): Promise<Config> {
   }
 }
 
-async function fetchGraphQL(query: string) {
+async function fetchGraphQL(query: string, variables?: Record<string, any>) {
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
       Authorization: `bearer ${GITHUB_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query, variables }),
   });
 
   if (!response.ok) {
@@ -125,8 +130,8 @@ async function getOrgRepos(org: string): Promise<RepoConfig[]> {
   console.log(`Fetching repos for org: ${org}...`);
   // Simple query to get first 100 repos of an org
   const query = `
-    query {
-      organization(login: "${org}") {
+    query($org: String!) {
+      organization(login: $org) {
         repositories(first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
           nodes {
             name
@@ -141,7 +146,7 @@ async function getOrgRepos(org: string): Promise<RepoConfig[]> {
   `;
 
   try {
-    const data = await fetchGraphQL(query);
+    const data = await fetchGraphQL(query, { org });
     return data.organization.repositories.nodes
       .filter((r: any) => !r.isArchived)
       .map((r: any) => ({ owner: r.owner.login, name: r.name }));
@@ -158,8 +163,8 @@ async function fetchRepoStats(
 ) {
   console.log(`Fetching stats for ${repo.owner}/${repo.name}...`);
   const query = `
-    query {
-      repository(owner: "${repo.owner}", name: "${repo.name}") {
+    query($owner: String!, $name: String!) {
+      repository(owner: $owner, name: $name) {
         pullRequests(first: 100, states: [MERGED, OPEN], orderBy: {field: CREATED_AT, direction: DESC}) {
           nodes {
             state
@@ -184,7 +189,7 @@ async function fetchRepoStats(
   `;
 
   try {
-    const data = await fetchGraphQL(query);
+    const data = await fetchGraphQL(query, { owner: repo.owner, name: repo.name });
     const repoData = data.repository;
 
     if (!repoData) return;
