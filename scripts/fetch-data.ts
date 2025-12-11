@@ -28,6 +28,7 @@ interface Contributor {
 }
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY; // e.g. "owner/repo"
 const CONFIG_PATH = path.join(process.cwd(), 'leaderboard.config.json');
 const OUTPUT_PATH = path.join(process.cwd(), 'public', 'data.json');
 
@@ -38,7 +39,53 @@ const SCORING = {
   issueWeight: 2
 };
 
+async function fetchConfigFromIssue(owner: string, name: string): Promise<Config | null> {
+  console.log(`Checking for configuration issue in ${owner}/${name}...`);
+  const query = `
+    query {
+      repository(owner: "${owner}", name: "${name}") {
+        issues(first: 1, labels: ["leaderboard-config"], states: OPEN) {
+          nodes {
+            body
+          }
+        }
+      }
+    }
+  `;
+  
+  try {
+    const data = await fetchGraphQL(query);
+    const issue = data.repository?.issues?.nodes?.[0];
+    
+    if (!issue || !issue.body) return null;
+
+    // Extract JSON from markdown code block
+    const jsonMatch = issue.body.match(/```json\s*([\s\S]*?)\s*```/);
+    if (jsonMatch && jsonMatch[1]) {
+      return JSON.parse(jsonMatch[1]);
+    }
+  } catch (e) {
+    console.warn("Error fetching config from issue:", e);
+  }
+  return null;
+}
+
 async function loadConfig(): Promise<Config> {
+  // 1. Try to fetch from GitHub Issue if running in Action
+  if (GITHUB_TOKEN && GITHUB_REPOSITORY) {
+    try {
+      const [owner, name] = GITHUB_REPOSITORY.split('/');
+      const issueConfig = await fetchConfigFromIssue(owner, name);
+      if (issueConfig) {
+        console.log("Loaded configuration from GitHub Issue.");
+        return issueConfig;
+      }
+    } catch (e) {
+      console.warn("Failed to load config from issue, falling back to file.");
+    }
+  }
+
+  // 2. Fallback to local file
   try {
     const data = await fs.readFile(CONFIG_PATH, 'utf-8');
     return JSON.parse(data);
