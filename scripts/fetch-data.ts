@@ -65,7 +65,11 @@ async function fetchConfigFromIssue(
     // Extract JSON from markdown code block
     const jsonMatch = issue.body.match(/```json\s*([\s\S]*?)\s*```/);
     if (jsonMatch && jsonMatch[1]) {
-      return JSON.parse(jsonMatch[1]);
+      try {
+        return JSON.parse(jsonMatch[1]);
+      } catch (parseError) {
+        console.warn("Failed to parse JSON from issue body:", parseError);
+      }
     }
   } catch (e) {
     console.warn("Error fetching config from issue:", e);
