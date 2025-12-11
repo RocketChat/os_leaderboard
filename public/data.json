@@ -1,6 +1,17 @@
 {
-  "timestamp": "2025-12-11T12:32:50.520Z",
+  "timestamp": "2025-12-11T13:12:31.991Z",
   "contributors": [
+    {
+      "id": "tassoevan",
+      "username": "tassoevan",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/2263066?u=8f44138e172bad74d30d9742cf101e5f8830b128&v=4",
+      "mergedPRs": 10,
+      "openPRs": 3,
+      "issues": 0,
+      "score": 115,
+      "lastActive": "12/10/2025",
+      "isIgnored": false
+    },
     {
       "id": "ggazzo",
       "username": "ggazzo",
@@ -13,22 +24,22 @@
       "isIgnored": false
     },
     {
+      "id": "gabriellsh",
+      "username": "gabriellsh",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/40830821?u=efcc037eaff06897bad571340dc3188659a60640&v=4",
+      "mergedPRs": 5,
+      "openPRs": 6,
+      "issues": 0,
+      "score": 80,
+      "lastActive": "12/10/2025",
+      "isIgnored": false
+    },
+    {
       "id": "lucas-a-pelegrino",
       "username": "lucas-a-pelegrino",
       "avatarUrl": "https://avatars.githubusercontent.com/u/16467257?u=41957d69d85ace646f797e53e565755a8daee190&v=4",
       "mergedPRs": 6,
       "openPRs": 2,
-      "issues": 0,
-      "score": 70,
-      "lastActive": "12/10/2025",
-      "isIgnored": false
-    },
-    {
-      "id": "gabriellsh",
-      "username": "gabriellsh",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/40830821?u=efcc037eaff06897bad571340dc3188659a60640&v=4",
-      "mergedPRs": 4,
-      "openPRs": 6,
       "issues": 0,
       "score": 70,
       "lastActive": "12/10/2025",
@@ -68,17 +79,6 @@
       "isIgnored": false
     },
     {
-      "id": "tassoevan",
-      "username": "tassoevan",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/2263066?u=8f44138e172bad74d30d9742cf101e5f8830b128&v=4",
-      "mergedPRs": 3,
-      "openPRs": 3,
-      "issues": 0,
-      "score": 45,
-      "lastActive": "12/10/2025",
-      "isIgnored": false
-    },
-    {
       "id": "copilot-swe-agent",
       "username": "copilot-swe-agent",
       "avatarUrl": "https://avatars.githubusercontent.com/in/1143301?v=4",
@@ -101,6 +101,17 @@
       "isIgnored": false
     },
     {
+      "id": "jeanfbrito",
+      "username": "jeanfbrito",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/1177482?v=4",
+      "mergedPRs": 3,
+      "openPRs": 2,
+      "issues": 0,
+      "score": 40,
+      "lastActive": "12/8/2025",
+      "isIgnored": false
+    },
+    {
       "id": "pierre-lehnen-rc",
       "username": "pierre-lehnen-rc",
       "avatarUrl": "https://avatars.githubusercontent.com/u/55164754?u=9112732a3c6962b15510af610b789e75143631ac&v=4",
@@ -108,6 +119,17 @@
       "openPRs": 0,
       "issues": 0,
       "score": 40,
+      "lastActive": "12/4/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "juliajforesti",
+      "username": "juliajforesti",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/60678893?u=5d794706a71181b753201c09b6e96ece5c115297&v=4",
+      "mergedPRs": 3,
+      "openPRs": 0,
+      "issues": 0,
+      "score": 30,
       "lastActive": "12/4/2025",
       "isIgnored": false
     },
@@ -167,14 +189,14 @@
       "isIgnored": false
     },
     {
-      "id": "juliajforesti",
-      "username": "juliajforesti",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/60678893?u=5d794706a71181b753201c09b6e96ece5c115297&v=4",
-      "mergedPRs": 2,
-      "openPRs": 0,
-      "issues": 0,
-      "score": 20,
-      "lastActive": "12/4/2025",
+      "id": "Pratheek555",
+      "username": "Pratheek555",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/111165032?u=c0c63bcd51024dfdb91d046a1a030b0f7327d199&v=4",
+      "mergedPRs": 1,
+      "openPRs": 1,
+      "issues": 2,
+      "score": 19,
+      "lastActive": "12/10/2025",
       "isIgnored": false
     },
     {
@@ -189,6 +211,17 @@
       "isIgnored": false
     },
     {
+      "id": "rocketchat-github-ci",
+      "username": "rocketchat-github-ci",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/73214249?u=ce5589044156a02005833e83fe4de327646bb781&v=4",
+      "mergedPRs": 1,
+      "openPRs": 1,
+      "issues": 0,
+      "score": 15,
+      "lastActive": "12/8/2025",
+      "isIgnored": false
+    },
+    {
       "id": "aleksandernsilva",
       "username": "aleksandernsilva",
       "avatarUrl": "https://avatars.githubusercontent.com/u/6494543?u=c25253254d13f8039d4e08eeabb8cd433d7f75d9&v=4",
@@ -196,6 +229,17 @@
       "openPRs": 3,
       "issues": 0,
       "score": 15,
+      "lastActive": "12/8/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "lingohub",
+      "username": "lingohub",
+      "avatarUrl": "https://avatars.githubusercontent.com/in/77526?v=4",
+      "mergedPRs": 0,
+      "openPRs": 2,
+      "issues": 0,
+      "score": 10,
       "lastActive": "12/8/2025",
       "isIgnored": false
     },
@@ -244,14 +288,14 @@
       "isIgnored": false
     },
     {
-      "id": "rocketchat-github-ci",
-      "username": "rocketchat-github-ci",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/73214249?u=ce5589044156a02005833e83fe4de327646bb781&v=4",
-      "mergedPRs": 1,
-      "openPRs": 0,
+      "id": "Dnouv",
+      "username": "Dnouv",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/61188295?u=48f162cc36b35c8e6944d69aa04be1ef40679a84&v=4",
+      "mergedPRs": 0,
+      "openPRs": 2,
       "issues": 0,
       "score": 10,
-      "lastActive": "12/8/2025",
+      "lastActive": "12/11/2025",
       "isIgnored": false
     },
     {
@@ -263,6 +307,61 @@
       "issues": 0,
       "score": 10,
       "lastActive": "12/8/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "github-actions",
+      "username": "github-actions",
+      "avatarUrl": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "mergedPRs": 1,
+      "openPRs": 0,
+      "issues": 0,
+      "score": 10,
+      "lastActive": "12/9/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "dev-rohit-gupta",
+      "username": "dev-rohit-gupta",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/184380500?u=3d6e97dca4659c4587ff8abc61c35cf509955573&v=4",
+      "mergedPRs": 0,
+      "openPRs": 1,
+      "issues": 1,
+      "score": 7,
+      "lastActive": "12/8/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "rodrigok",
+      "username": "rodrigok",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/234261?u=2bd6f2097cc1a347c982098e3619bf82af3e9e4d&v=4",
+      "mergedPRs": 0,
+      "openPRs": 1,
+      "issues": 0,
+      "score": 5,
+      "lastActive": "12/6/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "Phoenix616",
+      "username": "Phoenix616",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5768781?v=4",
+      "mergedPRs": 0,
+      "openPRs": 1,
+      "issues": 0,
+      "score": 5,
+      "lastActive": "12/6/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "Nitinref",
+      "username": "Nitinref",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/205888068?u=54f7175e683b7eed7f58f50fb84e000316efd9b6&v=4",
+      "mergedPRs": 0,
+      "openPRs": 1,
+      "issues": 0,
+      "score": 5,
+      "lastActive": "12/1/2025",
       "isIgnored": false
     },
     {
@@ -291,28 +390,6 @@
       "id": "jonasflorencio",
       "username": "jonasflorencio",
       "avatarUrl": "https://avatars.githubusercontent.com/u/79267723?u=48d16a0911f5202fb1a5564fdddc479a1c1c3246&v=4",
-      "mergedPRs": 0,
-      "openPRs": 1,
-      "issues": 0,
-      "score": 5,
-      "lastActive": "12/8/2025",
-      "isIgnored": false
-    },
-    {
-      "id": "lingohub",
-      "username": "lingohub",
-      "avatarUrl": "https://avatars.githubusercontent.com/in/77526?v=4",
-      "mergedPRs": 0,
-      "openPRs": 1,
-      "issues": 0,
-      "score": 5,
-      "lastActive": "12/8/2025",
-      "isIgnored": false
-    },
-    {
-      "id": "Dnouv",
-      "username": "Dnouv",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/61188295?u=48f162cc36b35c8e6944d69aa04be1ef40679a84&v=4",
       "mergedPRs": 0,
       "openPRs": 1,
       "issues": 0,
@@ -376,6 +453,50 @@
       "isIgnored": false
     },
     {
+      "id": "kartik-ornate",
+      "username": "kartik-ornate",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/195631623?v=4",
+      "mergedPRs": 0,
+      "openPRs": 1,
+      "issues": 0,
+      "score": 5,
+      "lastActive": "12/10/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "Tanishq-Mi",
+      "username": "Tanishq-Mi",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/143572288?u=4d47707dc675d33dc2d684eab2e098f7e2458ca9&v=4",
+      "mergedPRs": 0,
+      "openPRs": 1,
+      "issues": 0,
+      "score": 5,
+      "lastActive": "12/9/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "hemanthkumar-181020",
+      "username": "hemanthkumar-181020",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/194418903?u=777cd2c9ce7d80a559c924a50cf17ad69e1c6920&v=4",
+      "mergedPRs": 0,
+      "openPRs": 1,
+      "issues": 0,
+      "score": 5,
+      "lastActive": "12/8/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "Aryan-Verma-999",
+      "username": "Aryan-Verma-999",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/121835781?u=ece4d05f5c841453c56ef5f9b6b0f6e1e79f0c13&v=4",
+      "mergedPRs": 0,
+      "openPRs": 1,
+      "issues": 0,
+      "score": 5,
+      "lastActive": "12/1/2025",
+      "isIgnored": false
+    },
+    {
       "id": "DSingh0304",
       "username": "DSingh0304",
       "avatarUrl": "https://avatars.githubusercontent.com/u/179156529?u=0c4263d4c797c81ba8548fee33adfd6397237779&v=4",
@@ -428,6 +549,28 @@
       "issues": 1,
       "score": 2,
       "lastActive": "12/2/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "adebali",
+      "username": "adebali",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/3449123?u=17006666974b2e15fe24c7fe6abf1f007c714b82&v=4",
+      "mergedPRs": 0,
+      "openPRs": 0,
+      "issues": 1,
+      "score": 2,
+      "lastActive": "12/7/2025",
+      "isIgnored": false
+    },
+    {
+      "id": "mcwnuq",
+      "username": "mcwnuq",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/11915730?u=0d38dbcc34b6ed46cc698e03de74c8ed5db63d99&v=4",
+      "mergedPRs": 0,
+      "openPRs": 0,
+      "issues": 1,
+      "score": 2,
+      "lastActive": "12/6/2025",
       "isIgnored": false
     },
     {
@@ -561,6 +704,17 @@
       "score": 2,
       "lastActive": "12/2/2025",
       "isIgnored": false
+    },
+    {
+      "id": "mertigdir",
+      "username": "mertigdir",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/24223180?v=4",
+      "mergedPRs": 0,
+      "openPRs": 0,
+      "issues": 1,
+      "score": 2,
+      "lastActive": "12/4/2025",
+      "isIgnored": false
     }
   ],
   "repos": [
@@ -571,7 +725,192 @@
     },
     {
       "owner": "RocketChat",
+      "name": "Rocket.Chat.Electron",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Docker.Official.Image",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
       "name": "Rocket.Chat.ReactNative",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Rocket.Chat.js.SDK",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Rocket.Chat.py.SDK",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Rocket.Chat.Livechat",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Rocket.Chat.Embedded.arm64",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Rocket.Chat.Embedded.armhf",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "alexa-rocketchat",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Opensource-Contribution-Leaderboard",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.GitHub",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "fuselage",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "alexa-rocketchat-notification",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "alexa-rocketchat-flashbriefing",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "alexa-news-publisher",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "alexa-rc-multiserver-client",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.Rasa",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.Dialogflow",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "RC4Github",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "rocket.chat.app-poll",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "developer-docs",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "RC4Community",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "RC4Conferences",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.Github22",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "EmbeddedChat",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Rocket.Chat.Demo.App",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "docs",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "GSoC-Community-Hub",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.Notion",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.Whiteboard",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "google-summer-of-code",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.Chat.Summarize",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.QuickReplies",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.AI.Codebase.Assistant",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "AgileBot",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "RC.Guided.Tours",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "ruqola",
+      "isActive": true
+    },
+    {
+      "owner": "RocketChat",
+      "name": "Apps.Receipts.Processor",
       "isActive": true
     }
   ],
