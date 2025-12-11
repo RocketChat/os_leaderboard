@@ -1,0 +1,5 @@
+{
+  "name": "GitRank AI",
+  "description": "An advanced GitHub contributions leaderboard featuring real-time ranking, AI-powered contributor personas, and comprehensive admin controls.",
+  "requestFramePermissions": []
+}
