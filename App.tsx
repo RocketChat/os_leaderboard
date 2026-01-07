@@ -402,14 +402,15 @@ const App: React.FC = () => {
             </div>
          </div>
       )}
+
       {/* Display Empty-state message when no contributors are available */}
       {filteredContributors.length === 0 && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 text-center max-w-md">
-            <h1 className="text-xl text-slate-400 font-bold mb-1">No contributors found !</h1>
-            <p className="text-slate-400">Please check your leaderboard configuration.</p>
-          </div>
-        </div>
+         <div className="fixed inset-0 flex items-center justify-center p-4 backdrop-blur-sm">
+            <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 text-center max-w-md">
+              <h1 className="text-xl text-slate-400 font-bold mb-1">No contributors found !</h1>
+              <p className="text-slate-400">Please check your leaderboard configuration.</p>
+            </div>
+         </div>
       )}
     </div>
   );
