@@ -162,10 +162,63 @@ async function fetchRepoStats(
   config: Config
 ) {
   console.log(`Fetching stats for ${repo.owner}/${repo.name}...`);
-  const query = `
-    query($owner: String!, $name: String!) {
+
+  const startDate = config.startDate
+    ? new Date(config.startDate)
+    : new Date(0);
+
+  // Helper to process each contribution node
+  const processContribution = (
+    node: any,
+    type: "PR_MERGED" | "PR_OPEN" | "ISSUE"
+  ): boolean => {
+    if (!node.author) return true; // Continue fetching
+
+    const createdAt = new Date(node.createdAt);
+
+    // If we've gone past the start date, we can stop fetching older items
+    // (since results are ordered by CREATED_AT DESC)
+    if (createdAt < startDate) return false; // Stop fetching
+
+    const login = node.author.login;
+
+    if (!contributorMap.has(login)) {
+      contributorMap.set(login, {
+        id: login,
+        username: login,
+        avatarUrl: node.author.avatarUrl,
+        mergedPRs: 0,
+        openPRs: 0,
+        issues: 0,
+        score: 0,
+        lastActive: node.createdAt,
+        isIgnored: false,
+      });
+    }
+
+    const c = contributorMap.get(login)!;
+
+    // Update last active if newer
+    if (createdAt > new Date(c.lastActive)) {
+      c.lastActive = node.createdAt;
+    }
+
+    if (type === "PR_MERGED") c.mergedPRs++;
+    if (type === "PR_OPEN") c.openPRs++;
+    if (type === "ISSUE") c.issues++;
+
+    return true; // Continue fetching
+  };
+
+  // Paginated query for Pull Requests
+  const prQuery = `
+    query($owner: String!, $name: String!, $cursor: String) {
       repository(owner: $owner, name: $name) {
-        pullRequests(first: 100, states: [MERGED, OPEN], orderBy: {field: CREATED_AT, direction: DESC}) {
+        pullRequests(first: 100, after: $cursor, states: [MERGED, OPEN], orderBy: {field: CREATED_AT, direction: DESC}) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
           nodes {
             state
             createdAt
@@ -175,7 +228,19 @@ async function fetchRepoStats(
             }
           }
         }
-        issues(first: 100, states: [OPEN, CLOSED], orderBy: {field: CREATED_AT, direction: DESC}) {
+      }
+    }
+  `;
+
+  // Paginated query for Issues
+  const issueQuery = `
+    query($owner: String!, $name: String!, $cursor: String) {
+      repository(owner: $owner, name: $name) {
+        issues(first: 100, after: $cursor, states: [OPEN, CLOSED], orderBy: {field: CREATED_AT, direction: DESC}) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
           nodes {
             createdAt
             author {
@@ -189,59 +254,66 @@ async function fetchRepoStats(
   `;
 
   try {
-    const data = await fetchGraphQL(query, { owner: repo.owner, name: repo.name });
-    const repoData = data.repository;
+    // Fetch all PRs with pagination
+    let prCursor: string | null = null;
+    let prCount = 0;
+    let shouldContinuePRs = true;
 
-    if (!repoData) return;
+    while (shouldContinuePRs) {
+      const data = await fetchGraphQL(prQuery, {
+        owner: repo.owner,
+        name: repo.name,
+        cursor: prCursor
+      });
 
-    const startDate = config.startDate
-      ? new Date(config.startDate)
-      : new Date(0);
+      const prData = data.repository?.pullRequests;
+      if (!prData) break;
 
-    const processContribution = (
-      node: any,
-      type: "PR_MERGED" | "PR_OPEN" | "ISSUE"
-    ) => {
-      if (!node.author) return;
-
-      // Filter by Date
-      if (new Date(node.createdAt) < startDate) return;
-
-      const login = node.author.login;
-
-      if (!contributorMap.has(login)) {
-        contributorMap.set(login, {
-          id: login,
-          username: login,
-          avatarUrl: node.author.avatarUrl,
-          mergedPRs: 0,
-          openPRs: 0,
-          issues: 0,
-          score: 0,
-          lastActive: node.createdAt, // Initial value
-          isIgnored: false,
-        });
+      for (const pr of prData.nodes) {
+        const shouldContinue = processContribution(
+          pr,
+          pr.state === "MERGED" ? "PR_MERGED" : "PR_OPEN"
+        );
+        prCount++;
+        if (!shouldContinue) {
+          shouldContinuePRs = false;
+          break;
+        }
       }
 
-      const c = contributorMap.get(login)!;
+      if (!shouldContinuePRs || !prData.pageInfo.hasNextPage) break;
+      prCursor = prData.pageInfo.endCursor;
+    }
 
-      // Update last active if newer
-      if (new Date(node.createdAt) > new Date(c.lastActive)) {
-        c.lastActive = node.createdAt;
+    // Fetch all Issues with pagination
+    let issueCursor: string | null = null;
+    let issueCount = 0;
+    let shouldContinueIssues = true;
+
+    while (shouldContinueIssues) {
+      const data = await fetchGraphQL(issueQuery, {
+        owner: repo.owner,
+        name: repo.name,
+        cursor: issueCursor
+      });
+
+      const issueData = data.repository?.issues;
+      if (!issueData) break;
+
+      for (const issue of issueData.nodes) {
+        const shouldContinue = processContribution(issue, "ISSUE");
+        issueCount++;
+        if (!shouldContinue) {
+          shouldContinueIssues = false;
+          break;
+        }
       }
 
-      if (type === "PR_MERGED") c.mergedPRs++;
-      if (type === "PR_OPEN") c.openPRs++;
-      if (type === "ISSUE") c.issues++;
-    };
+      if (!shouldContinueIssues || !issueData.pageInfo.hasNextPage) break;
+      issueCursor = issueData.pageInfo.endCursor;
+    }
 
-    repoData.pullRequests.nodes.forEach((pr: any) => {
-      processContribution(pr, pr.state === "MERGED" ? "PR_MERGED" : "PR_OPEN");
-    });
-
-    repoData.issues.nodes.forEach((issue: any) => {
-      processContribution(issue, "ISSUE");
-    });
+    console.log(`  → Processed ${prCount} PRs, ${issueCount} issues`);
   } catch (e) {
     console.error(`Error processing ${repo.owner}/${repo.name}:`, e);
   }
