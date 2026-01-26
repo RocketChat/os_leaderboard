@@ -1,5 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
+import dotenv from "dotenv";
+
+dotenv.config();
 // Types for the script
 interface RepoConfig {
   owner: string;
@@ -25,7 +28,7 @@ interface Contributor {
   isIgnored: boolean; // Added to match frontend type
 }
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY; // e.g. "owner/repo"
 const CONFIG_PATH = path.join(process.cwd(), "leaderboard.config.json");
 const OUTPUT_PATH = path.join(process.cwd(), "public", "data.json");
@@ -36,6 +39,33 @@ const SCORING = {
   openPrWeight: 5,
   issueWeight: 2,
 };
+
+
+function getGithubToken(): string {
+  const token = process.env.GITHUB_TOKEN;
+
+  if (!token) {
+    throw new Error(
+      [
+        " GITHUB_TOKEN is missing.",
+        "",
+        "Fix:",
+        "1. Create a .env file",
+        "2. Add: GITHUB_TOKEN=your_personal_access_token",
+        "3. Restart the terminal",
+      ].join("\n")
+    );
+  }
+
+  if (!token.startsWith("ghp_") && !token.startsWith("github_pat_")) {
+    throw new Error(
+      " GITHUB_TOKEN looks invalid. Generate a valid GitHub Personal Access Token."
+    );
+  }
+
+  return token;
+}
+
 
 async function fetchConfigFromIssue(
   owner: string,
@@ -77,7 +107,7 @@ async function fetchConfigFromIssue(
 
 async function loadConfig(): Promise<Config> {
   // 1. Try to fetch from GitHub Issue if running in Action
-  if (GITHUB_TOKEN && GITHUB_REPOSITORY) {
+  if (process.env.GITHUB_TOKEN && GITHUB_REPOSITORY) {
     try {
       const parts = GITHUB_REPOSITORY.split("/");
       if (parts.length === 2 && parts[0] && parts[1]) {
@@ -106,25 +136,40 @@ async function loadConfig(): Promise<Config> {
 }
 
 async function fetchGraphQL(query: string, variables?: Record<string, any>) {
+  const token = getGithubToken();
+
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
-      Authorization: `bearer ${GITHUB_TOKEN}`,
+      Authorization: `bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query, variables }),
   });
 
   if (!response.ok) {
-    throw new Error(`GitHub API Error: ${response.statusText}`);
+    if (response.status === 401) {
+      throw new Error(" GitHub authentication failed (401).");
+    }
+
+    if (response.status === 403) {
+      throw new Error(" GitHub API rate limit exceeded (403).");
+    }
+
+    throw new Error(
+      ` GitHub API error: ${response.status} ${response.statusText}`
+    );
   }
 
   const result = await response.json();
+
   if (result.errors) {
-    throw new Error(`GraphQL Error: ${JSON.stringify(result.errors)}`);
+    throw new Error(` GraphQL Error: ${JSON.stringify(result.errors)}`);
   }
+
   return result.data;
 }
+
 
 async function getOrgRepos(org: string): Promise<RepoConfig[]> {
   console.log(`Fetching repos for org: ${org}...`);
@@ -248,10 +293,7 @@ async function fetchRepoStats(
 }
 
 async function main() {
-  if (!GITHUB_TOKEN) {
-    console.error("Error: GITHUB_TOKEN environment variable is required.");
-    process.exit(1);
-  }
+
 
   const config = await loadConfig();
   const allRepos: RepoConfig[] = [];
