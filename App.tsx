@@ -11,6 +11,7 @@ import {
   X,
   ChevronRight
 } from 'lucide-react';
+import FloatingLines from '@/components/FloatingLInes';
 import { Contributor, Repository, AppSettings, SortField } from './types';
 import { INITIAL_REPOS, INITIAL_SETTINGS, MOCK_CONTRIBUTORS } from './constants';
 import StatsCharts from './components/StatsCharts';
@@ -162,7 +163,20 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans pb-20 relative overflow-x-hidden w-full">
-      
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <FloatingLines
+          enabledWaves={["top", "middle", "bottom"]}
+          lineCount={7}
+          lineDistance={5}
+          bendRadius={10.5}
+          bendStrength={-0.5}
+          interactive
+          parallax
+        />
+      </div>
+
+      <div className='relative z-10'>
+
       {showGame && <EasterEggGame onClose={() => setShowGame(false)} />}
 
       {/* Background Ambience */}
@@ -199,7 +213,7 @@ const App: React.FC = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full sm:w-64 bg-slate-800/50 border border-slate-700 rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all placeholder:text-slate-600"
-                />
+                  />
              </div>
           </div>
         </header>
@@ -247,10 +261,10 @@ const App: React.FC = () => {
                 disabled={isRefreshing}
                 className={`flex items-center gap-2 text-xs sm:text-sm px-3 py-1.5 rounded-full border border-transparent transition-colors ${
                   isRefreshing 
-                    ? 'bg-slate-800 text-slate-500 cursor-not-allowed' 
-                    : 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20'
+                  ? 'bg-slate-800 text-slate-500 cursor-not-allowed' 
+                  : 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20'
                 }`}
-              >
+                >
                 <RefreshCw className={`w-3 h-3 sm:w-4 sm:h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                 <span>{isRefreshing ? 'Loading' : 'Refresh'}</span>
               </button>
@@ -282,9 +296,9 @@ const App: React.FC = () => {
               <tbody className="divide-y divide-slate-800">
                 {visibleContributors.map((contributor, index) => (
                   <tr 
-                    key={contributor.id} 
-                    onClick={() => setSelectedContributor(contributor)}
-                    className="group hover:bg-slate-800/60 transition-colors duration-150 cursor-pointer active:bg-slate-800"
+                  key={contributor.id} 
+                  onClick={() => setSelectedContributor(contributor)}
+                  className="group hover:bg-slate-800/60 transition-colors duration-150 cursor-pointer active:bg-slate-800"
                   >
                     <td className="p-3 sm:p-4 text-center font-mono text-slate-500 group-hover:text-slate-300">
                       #{index + 1}
@@ -296,7 +310,7 @@ const App: React.FC = () => {
                               src={contributor.avatarUrl} 
                               alt="" 
                               className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 ring-2 ring-transparent group-hover:ring-slate-700 transition-all" 
-                            />
+                              />
                             {index < 3 && (
                               <div className="absolute -top-1 -right-1 text-xs">
                                 {index === 0 ? '👑' : index === 1 ? '🥈' : '🥉'}
@@ -343,7 +357,7 @@ const App: React.FC = () => {
                 
                 {/* Sentinel Element for Intersection Observer */}
                 {visibleCount < filteredContributors.length && (
-                    <tr ref={observerTarget}>
+                  <tr ref={observerTarget}>
                         <td colSpan={7} className="p-6 text-center text-slate-500 text-sm animate-pulse">
                             Loading more contributors...
                         </td>
@@ -359,13 +373,13 @@ const App: React.FC = () => {
 
       {/* Contributor Details Modal */}
       {selectedContributor && (
-         <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
                <div className="relative p-6 border-b border-slate-800 bg-slate-800/50">
                   <button 
                     onClick={() => setSelectedContributor(null)} 
                     className="absolute top-4 right-4 p-1 rounded-full text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
-                  >
+                    >
                      <X className="w-5 h-5" />
                   </button>
                   <div className="flex items-center gap-4">
@@ -403,6 +417,7 @@ const App: React.FC = () => {
          </div>
       )}
     </div>
+      </div>
   );
 };
 
