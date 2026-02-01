@@ -58,6 +58,37 @@ To avoid polluting your commit history when adding users:
 3. Fetch data: `npm run update-data`
 4. Start app: `npm run dev`
 
+## Troubleshooting
+
+### GITHUB_TOKEN Issues
+
+**Error: "GITHUB_TOKEN is missing"**
+- Ensure you have set the `GITHUB_TOKEN` environment variable
+- For local development:
+  - **Linux/macOS**: `export GITHUB_TOKEN="your_token_here"`
+  - **Windows CMD**: `set GITHUB_TOKEN=your_token_here`
+  - **Windows PowerShell**: `$env:GITHUB_TOKEN="your_token_here"`
+- For GitHub Actions: Add `GITHUB_TOKEN` as a repository secret
+
+**Error: "GITHUB_TOKEN appears to be invalid"**
+- Ensure you've copied the **entire** token from GitHub
+- Valid tokens are typically 40+ characters long
+- Fine-grained tokens start with `github_pat_`
+- Classic tokens start with `ghp_`
+
+**Creating a Personal Access Token (PAT)**
+1. Go to [GitHub Token Settings](https://github.com/settings/tokens)
+2. Click "Generate new token (classic)"
+3. Select required scopes:
+   - `repo` (for private repos) or `public_repo` (for public repos only)
+   - `read:org` (to fetch organization repositories)
+4. Copy and save the token securely
+
+**Rate Limit Errors**
+- GitHub API has rate limits (5000 requests/hour for authenticated users)
+- If you hit limits, wait an hour or use a different token
+- Consider reducing the number of tracked repositories
+
 ## Deployment & Artifacts
 
 The `.github/workflows/update-leaderboard.yml` workflow is a complete CI/CD pipeline that:

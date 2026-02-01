@@ -248,8 +248,47 @@ async function fetchRepoStats(
 }
 
 async function main() {
+  // Validate GITHUB_TOKEN with helpful error messages
   if (!GITHUB_TOKEN) {
-    console.error("Error: GITHUB_TOKEN environment variable is required.");
+    console.error(`
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    ERROR: GITHUB_TOKEN is missing                          ║
+╠════════════════════════════════════════════════════════════════════════════╣
+║ The GITHUB_TOKEN environment variable is required to fetch data from the  ║
+║ GitHub API.                                                                 ║
+║                                                                             ║
+║ To fix this issue:                                                          ║
+║                                                                             ║
+║ 1. Create a GitHub Personal Access Token:                                  ║
+║    → Go to: https://github.com/settings/tokens                             ║
+║    → Click "Generate new token (classic)"                                  ║
+║    → Select scopes: 'repo' and 'read:org'                                  ║
+║    → Copy the generated token                                              ║
+║                                                                             ║
+║ 2. Set the environment variable:                                           ║
+║    • Linux/macOS: export GITHUB_TOKEN="your_token_here"                    ║
+║    • Windows CMD:  set GITHUB_TOKEN=your_token_here                        ║
+║    • Windows PS:   $env:GITHUB_TOKEN="your_token_here"                     ║
+║    • GitHub Actions: Add as a repository secret                            ║
+║                                                                             ║
+║ For more details, see the README.md troubleshooting section.               ║
+╚════════════════════════════════════════════════════════════════════════════╝
+`);
+    process.exit(1);
+  }
+
+  // Validate token format (GitHub tokens are typically 40+ characters)
+  if (GITHUB_TOKEN.length < 40) {
+    console.error(`
+╔════════════════════════════════════════════════════════════════════════════╗
+║                 ERROR: GITHUB_TOKEN appears to be invalid                   ║
+╠════════════════════════════════════════════════════════════════════════════╣
+║ The provided token is too short (${GITHUB_TOKEN.length} characters).                            ║
+║ Valid GitHub tokens are typically 40+ characters long.                      ║
+║                                                                             ║
+║ Please ensure you've copied the entire token from GitHub.                  ║
+╚════════════════════════════════════════════════════════════════════════════╝
+`);
     process.exit(1);
   }
 
